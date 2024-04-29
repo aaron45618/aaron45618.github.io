@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="en" style="height: 100%">
+<head>
+  <meta charset="utf-8">
+  <title>USA Population</title>
+  <script type="text/javascript" src="js/jquery.min.js"></script>
+  <script type="text/javascript" src="js/echarts.min.js"></script>
+  <style>
+    *{
+      padding: 0;
+      margin: 0;
+    }
+    .top{
+      text-align: center;
+    }
+  </style>
+</head>
+<body style="height: 100%; margin: 0">
+  <div class="top">
+    <select id="vv">
+      <option value="0">All</option>
+      <option value="1">Internet penetration </option>
+      <option value="2">Internet penetration, YoY</option>
+      <option value="3">Educational attainment-High school graduate or more</option>
+      <option value="4">Educational attainment-High school graduate or more, YoY</option>
+      <option value="5">Educational attainment-College graduate or more</option>
+      <option value="6">Educational attainment-College graduate or more, YoY</option>
+      <option value="7">School enrollment, tertiary (% gross)</option>
+      <option value="8">School enrollment, tertiary (% gross), YoY</option>
+    </select>
+  </div>
+  
+  <div id="container" style="height: 100%"></div>
+  <script type="text/javascript">
+    
+    var selectElement = document.getElementById('vv');
+    var dataset = [];
+    var json1 = '{"name": "Government expenditure on education, total (% of government expenditure)","type": "line", "data": [17.99,17.69,17.31,16.98,16.96,16.70,16.81,16.71,16.22,15.60,15.56,15.51,15.60,16.02,16.00,16.05,15.97,15.90,15.78,15.52,12.65]}';
+    json1 = JSON.parse(json1);
+    var json2 = '{"name": "Government Expenditure on education, total (%of government expenditure), YoY","type": "bar", "data": [0 ,-1.66,-2.13,-1.92,-0.12,-1.55,0.66,-0.62,-2.91,-3.82,-0.25,-0.35,0.59,2.73,-0.12,0.30,-0.49,-0.46,-0.76,-1.67,-18.45]}';
+    json2 = JSON.parse(json2);
+
+    var json3 = '{"name": "Government expenditure on education, total (% of GDP)","type": "line", "data": [6.09,6.30,6.36,6.33,6.25,6.17,6.16,6.24,6.44,6.74,6.69,6.50,6.25,6.23,6.13,4.95,4.81,5.12,4.93,4.99,5.44]}';
+    json3 = JSON.parse(json3);
+    var json4 = '{"name": "Government expenditure on education, total (% of GDP), YoY","type": "bar", "data": [0 , 3.5,0.91,-0.49,-1.18,-1.32,-0.11,1.29,3.09,4.70,-0.66,-2.94,-3.75,-0.39,-1.61,-19.29,-2.83,6.58,-3.79,1.18,8.99 ]}';
+    json4 = JSON.parse(json4);
+
+    var json5 = '{"name": "US Pupil-teacher ratio, Public","type": "line", "data": [ 16 , 15.90,15.90,15.90,15.80,15.60,15.60,15.40,15.30,15.40,16.00,16.00,16,16.1,16.1,16,16,16,16,15.9,15.4 ]}';
+    json5 = JSON.parse(json5);
+    var json6 = '{"name": "US Pupil-teacher ratio, Public, YoY","type": "bar", "data": [0 , -0.62,0,0,-0.63,-1.27,0,-1.28,-0.65,0.65,3.9,0,0,0.63,0,-0.62,0,0,0,-0.62,-3.14 ]}';
+    json6 = JSON.parse(json6);
+
+    var json7 = '{"name": "US Pupil-teacher ratio, Private","type": "line", "data": [14.5,14.3,14.1,13.8,13.7,13.5,13.2,13,12.8,12.5,13,13,13.1,12.2,12.1,11.9,11.9,11.9,11.6,11.4,12.5]}';
+    json7 = JSON.parse(json7);
+    var json8 = '{"name": "US Pupil-teacher ratio, Private, YoY","type": "bar", "data": [0 , -1.38,-1.4,-2.13,-0.72,-1.46,-2.22,-1.52,-1.54,-2.34,4,0,0.77,-6.87,-0.82,-1.65,0,0,-2.52,-1.72,9.65 ]}';
+    json8 = JSON.parse(json8);
+    selectElement.addEventListener('change', function() {
+      var dom = document.getElementById('container');
+      var myChart = echarts.init(dom);
+      myChart.dispose();
+      var selectedValue = selectElement.options[selectElement.selectedIndex].value;
+      if(selectedValue == 1){
+        dataset = [];
+        dataset.push(json1);
+      }else if(selectedValue == 2){
+        dataset = [];
+        dataset.push(json2);
+      }else if(selectedValue == 3){
+        dataset = [];
+        dataset.push(json3);
+      }else if(selectedValue == 4){
+        dataset = [];
+        dataset.push(json4);
+      }else if(selectedValue == 5){
+        dataset = [];
+        dataset.push(json5);
+      }else if(selectedValue == 6){
+        dataset = [];
+        dataset.push(json6);
+      }else if(selectedValue == 7){
+        dataset = [];
+        dataset.push(json7);
+      }else if(selectedValue == 8){
+        dataset = [];
+        dataset.push(json8);
+      }else{
+        dataset = [];
+        dataset.push(json1);
+        dataset.push(json2);
+        dataset.push(json3);
+        dataset.push(json4);
+        dataset.push(json5);
+        dataset.push(json6);
+        dataset.push(json7);
+        dataset.push(json8);
+      }
+      console.log(dataset)
+      cc(dataset);
+    })
+
+    dataset.push(json1);
+    dataset.push(json2);
+    dataset.push(json3);
+    dataset.push(json4);
+    dataset.push(json5);
+    dataset.push(json6);
+    dataset.push(json7);
+    dataset.push(json8);
+    cc(dataset);
+
+    function cc(dataset){
+      var dom = document.getElementById('container');
+      var myChart = echarts.init(dom);
+      var option;
+
+      option = {
+        tooltip: {
+          trigger: 'axis',
+          axisPointer: {
+            type: 'cross',
+            crossStyle: {
+              color: '#999'
+            }
+          }
+        },
+        legend: {
+          data: ['Government expenditure on education, total (% of government expenditure)', 'Government Expenditure on education, total (%of government expenditure), YoY','Government expenditure on education, total (% of GDP)','Government expenditure on education, total (% of GDP), YoY','US Pupil-teacher ratio, Public','US Pupil-teacher ratio, Public, YoY','US Pupil-teacher ratio, Private','US Pupil-teacher ratio, Private, YoY']
+        },
+        color : ["green","green","orange","orange","cornflowerblue","cornflowerblue","orangered","orangered"],
+        xAxis: [
+          {
+            type: 'category',
+            data: ['2000','2001','2002','2003', '2004', '2005', '2006', '2007', '2008', '2009' , '2010','2011','2012','2013', '2014', '2015', '2016', '2017', '2018', '2019' , '2020'],
+            axisPointer: {
+              type: 'shadow'
+            }
+          }
+        ],
+        yAxis: [
+          {
+            type: 'value',
+            name: '%',
+            min: -10,
+            max: 25,
+            interval: 5,
+            axisLabel: {
+              formatter: '{value} %'
+            }
+          }
+        ],
+        series: dataset
+      };
+
+      myChart.setOption(option);
+    }
+    
+  </script>
+</body>
+</html>

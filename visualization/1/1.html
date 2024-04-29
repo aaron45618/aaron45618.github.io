@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="en" style="height: 100%">
+<head>
+  <meta charset="utf-8">
+  <title>USA Population</title>
+  <script type="text/javascript" src="js/jquery.min.js"></script>
+  <script type="text/javascript" src="js/echarts.min.js"></script>
+  <style>
+    *{
+      padding: 0;
+      margin: 0;
+    }
+    .top{
+      text-align: center;
+    }
+  </style>
+</head>
+<body style="height: 100%; margin: 0">
+  <div class="top">
+    <select id="vv">
+      <option value="0">All</option>
+      <option value="1">Internet penetration </option>
+      <option value="2">Internet penetration, YoY</option>
+      <option value="3">Educational attainment-High school graduate or more</option>
+      <option value="4">Educational attainment-High school graduate or more, YoY</option>
+      <option value="5">Educational attainment-College graduate or more</option>
+      <option value="6">Educational attainment-College graduate or more, YoY</option>
+      <option value="7">School enrollment, tertiary (% gross)</option>
+      <option value="8">School enrollment, tertiary (% gross), YoY</option>
+    </select>
+  </div>
+  
+  <div id="container" style="height: 100%"></div>
+  <script type="text/javascript">
+    
+    var selectElement = document.getElementById('vv');
+    var dataset = [];
+    var json1 = '{"name": "Internet penetration","type": "line", "data": [71.40 , 73.00 , 74.55 , 85.54 , 87.27 , 87.27 , 87.27 , 87.27 , 90.00]}';
+    json1 = JSON.parse(json1);
+    var json2 = '{"name": "Internet penetration, YoY","type": "bar", "data": [0 ,2.24, 2.12, 14.74, 2.02, 0, 0, -0.31, 3.45]}';
+    json2 = JSON.parse(json2);
+
+    var json3 = '{"name": "Educational attainment-High school graduate or more","type": "line", "data": [88.20 , 88.30 , 88.40 , 89.10 , 89.6 , 89.8 , 90.10 , 90.90 , 91.10]}';
+    json3 = JSON.parse(json3);
+    var json4 = '{"name": "Educational attainment-High school graduate or more, YoY","type": "bar", "data": [0 , 0.11 , 0.11 , 0.79 , 0.56 , 0.22 , 0.33 , 0.89 , 0.22 ]}';
+    json4 = JSON.parse(json4);
+
+    var json5 = '{"name": "Educational attainment-College graduate or more","type": "line", "data": [ 31.70 , 32.00 , 32.50 ,33.40 , 34.20 , 35.00 , 36.00 , 37.50 , 37.90 ]}';
+    json5 = JSON.parse(json5);
+    var json6 = '{"name": "Educational attainment-College graduate or more, YoY","type": "bar", "data": [0 , 0.95 , 1.56 , 2.77 , 2.40 , 2.34 , 2.86 , 4.17 , 1.07 ]}';
+    json6 = JSON.parse(json6);
+
+    var json7 = '{"name": "School enrollment, tertiary (% gross)","type": "line", "data": [ 88.73 , 88.63 , 88.89 , 88.84 , 88.17 , 88.30 , 87.89 , 87.57 , 84.86 ]}';
+    json7 = JSON.parse(json7);
+    var json8 = '{"name": "School enrollment, tertiary (% gross), YoY","type": "bar", "data": [0 , -0.11 , 0.30 , -0.06 , -0.75 , 0.15 , -0.46 , -0.37 , -3.10 ]}';
+    json8 = JSON.parse(json8);
+    selectElement.addEventListener('change', function() {
+      var dom = document.getElementById('container');
+      var myChart = echarts.init(dom);
+      myChart.dispose();
+      var selectedValue = selectElement.options[selectElement.selectedIndex].value;
+      if(selectedValue == 1){
+        dataset = [];
+        dataset.push(json1);
+      }else if(selectedValue == 2){
+        dataset = [];
+        dataset.push(json2);
+      }else if(selectedValue == 3){
+        dataset = [];
+        dataset.push(json3);
+      }else if(selectedValue == 4){
+        dataset = [];
+        dataset.push(json4);
+      }else if(selectedValue == 5){
+        dataset = [];
+        dataset.push(json5);
+      }else if(selectedValue == 6){
+        dataset = [];
+        dataset.push(json6);
+      }else if(selectedValue == 7){
+        dataset = [];
+        dataset.push(json7);
+      }else if(selectedValue == 8){
+        dataset = [];
+        dataset.push(json8);
+      }else{
+        dataset = [];
+        dataset.push(json1);
+        dataset.push(json2);
+        dataset.push(json3);
+        dataset.push(json4);
+        dataset.push(json5);
+        dataset.push(json6);
+        dataset.push(json7);
+        dataset.push(json8);
+      }
+      console.log(dataset)
+      cc(dataset);
+    })
+
+    dataset.push(json1);
+    dataset.push(json2);
+    dataset.push(json3);
+    dataset.push(json4);
+    dataset.push(json5);
+    dataset.push(json6);
+    dataset.push(json7);
+    dataset.push(json8);
+    cc(dataset);
+
+    function cc(dataset){
+      var dom = document.getElementById('container');
+      var myChart = echarts.init(dom);
+      var option;
+
+      option = {
+        tooltip: {
+          trigger: 'axis',
+          axisPointer: {
+            type: 'cross',
+            crossStyle: {
+              color: '#999'
+            }
+          }
+        },
+        legend: {
+          data: ['Internet penetration', 'Internet penetration, YoY','Educational attainment-High school graduate or more','Educational attainment-High school graduate or more, YoY','Educational attainment-College graduate or more','Educational attainment-College graduate or more, YoY','School enrollment, tertiary (% gross)','School enrollment, tertiary (% gross), YoY']
+        },
+        color : ["green","green","orange","orange","cornflowerblue","cornflowerblue","orangered","orangered"],
+        xAxis: [
+          {
+            type: 'category',
+            data: ['2013', '2014', '2015', '2016', '2017', '2018', '2019' , '2020', '2021'],
+            axisPointer: {
+              type: 'shadow'
+            }
+          }
+        ],
+        yAxis: [
+          {
+            type: 'value',
+            name: '%',
+            min: -10,
+            max: 100,
+            interval: 10,
+            axisLabel: {
+              formatter: '{value} %'
+            }
+          }
+        ],
+        series: dataset
+      };
+
+      myChart.setOption(option);
+    }
+    
+  </script>
+</body>
+</html>
