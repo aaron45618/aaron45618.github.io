@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="en" style="height: 100%">
+<head>
+  <meta charset="utf-8">
+  <title></title>
+  <script type="text/javascript" src="js/jquery.min.js"></script>
+  <script type="text/javascript" src="js/echarts.min.js"></script>
+  <style>
+    *{
+      padding: 0;
+      margin: 0;
+    }
+    h1{
+      text-align: center;
+    }
+    .title{
+      display: flex;
+      width: 90%;
+      margin: 0 auto;
+    }
+    .title1,.title2{
+      width: 100%;
+    }
+    .title2{
+      text-align: right;
+    }
+    .container{
+      display: flex;
+      width: 100%;
+      height: 90vh;
+    }
+    #container1{
+      width: 50%;
+      height: 90vh;
+    }
+    #container2{
+      width: 50%;
+    }
+  </style>
+</head>
+<body style="height: 100%;">
+  <h1>2015</h1>
+  <div class="title">
+    <div class="title1">
+      <h2>Urban</h2>
+    </div>
+    <div class="title2">
+      <h2>Rural</h2>
+    </div>
+  </div>
+  <div class="container">
+    <div id="container1" style="height: 100%;"></div>
+    <div id="container2" style="height: 100%;"></div>
+  </div>
+  
+  <script type="text/javascript">
+    var dom1 = document.getElementById('container1');
+    var myChart1 = echarts.init(dom1);
+    var option1;
+
+    option1 = {
+      series: [
+        {
+          type: 'treemap',
+          data: [
+            {
+              name: "Bachelor's degree or higher",
+              value: 33,
+              itemStyle : {color : "pink"}
+            },
+            {
+              name: "Associate's degree",
+              value: 8,
+              itemStyle : {color : "orange"}
+            },
+            {
+              name: "Some college, no degree",
+              value: 21,
+              itemStyle : {color : "purple"}
+            },
+            {
+              name: "High school diploma or equivalent",
+              value: 26,
+              itemStyle : {color : "cornflowerblue"}
+            },
+            {
+              name: "Less than high school diploma or equivalent",
+              value: 13,
+              itemStyle : {color : "orangered"}
+            }
+          ],
+          leaves: {
+            label: {
+                position: 'right',
+                verticalAlign: 'middle',
+                align: 'left'
+            }
+          },
+          sort: 'desc',
+          top: '10%',
+          left: '10%',
+          bottom: '10%',
+          right: '0',
+          silent: true,
+          
+        },
+        
+      ]
+    };
+
+    myChart1.setOption(option1);
+
+    var dom2 = document.getElementById('container2');
+    var myChart2 = echarts.init(dom2);
+    var option2;
+
+    option2 = {
+      series: [
+        {
+          type: 'treemap',
+          data: [
+            {
+              name: "Bachelor's degree or higher",
+              value: 19,
+              itemStyle : {color : "pink"}
+            },
+            {
+              name: "Associate's degree",
+              value: 9,
+              itemStyle : {color : "orange"}
+            },
+            {
+              name: "Some college, no degree",
+              value: 22,
+              itemStyle : {color : "purple"}
+            },
+            {
+              name: "High school diploma or equivalent",
+              value: 36,
+              itemStyle : {color : "cornflowerblue"}
+            },
+            {
+              name: "Less than high school diploma or equivalent",
+              value: 15,
+              itemStyle : {color : "orangered"}
+            }
+          ],
+          sort: 'asc',
+          orient: 'RL',
+          top: '10%',
+          left: '0',
+          bottom: '10%',
+          right: '10%',
+          silent: true,
+          
+        }
+      ]
+    };
+
+    myChart2.setOption(option2)
+
+  </script>
+</body>
+</html>
